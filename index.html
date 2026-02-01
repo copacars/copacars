@@ -59,7 +59,7 @@
         #search-input { width: 100%; padding: 12px 20px; border: 1px solid #ddd; border-radius: 30px; font-size: 1rem; outline: none; transition: 0.3s; background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
         #search-input:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(255, 140, 0, 0.2); }
 
-        /* FILTROS */
+        /* FILTROS CON FLECHAS */
         .filters-wrapper { display: flex; align-items: center; gap: 10px; position: relative; }
         .filters { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; scroll-behavior: smooth; flex-grow: 1; }
         .filters::-webkit-scrollbar { display: none; }
@@ -70,35 +70,11 @@
 
         /* GRID PRODUCTOS */
         .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; margin-top: 20px; }
-        
-        .product-card { 
-            background: var(--white); 
-            border-radius: 12px; 
-            overflow: hidden; 
-            transition: transform 0.3s, box-shadow 0.3s; 
-            border: 1px solid #eee; 
-            cursor: pointer; 
-            display: flex; 
-            flex-direction: column; 
-            position: relative; /* Importante para el letrero de promo */
-        }
+        .product-card { background: var(--white); border-radius: 12px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; border: 1px solid #eee; cursor: pointer; display: flex; flex-direction: column; position: relative; }
         .product-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
         
         /* LETRERO DE PROMOCIÓN */
-        .promo-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: var(--primary);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            z-index: 10;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            text-transform: uppercase;
-        }
+        .promo-badge { position: absolute; top: 10px; right: 10px; background-color: var(--primary); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; z-index: 10; box-shadow: 0 2px 5px rgba(0,0,0,0.2); text-transform: uppercase; }
 
         .product-image-container { height: 200px; overflow: hidden; background: #ffffff; display: flex; align-items: center; justify-content: center; padding: 10px; }
         .product-image { width: 100%; height: 100%; object-fit: contain; transition: 0.3s; }
@@ -199,7 +175,7 @@
 
     <div class="container">
         <h3>Catálogo</h3>
-        <div id="loading">Cargando productos...Buscando las mejores ofertas...</div>
+        <div id="loading">Cargando productos, buscando las mejores ofertas...</div>
         <div class="products-grid" id="products-grid"></div>
     </div>
 
@@ -264,7 +240,7 @@
 
     <script>
         const PHONE_NUMBER = "593963983947"; 
-        const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR4XiOIAqib5wdMK5UU__AInDUCYkfTa8ztC--R49-Ad1l-WE_9mWdVP9n4363erXq3Qskg2RoYNxF-/pub?output=csv"; 
+        const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ4jAgkz1cTK9NTZxHTbjV4aeqeK7zLjY4JwihXQg1mYjkClM-0cyaXlM5Sf-0LXwpzhbphkdI3_xFA/pub?output=csv"; 
 
         const SLIDES = [
             { image: "Oferta.png", text: "" },
@@ -295,7 +271,6 @@
                             stock: parseInt(row.stock) || 0,
                             variants: row.variants ? row.variants.split(',').map(s => s.trim()).filter(v => v !== "") : [],
                             description: row.description,
-                            // NUEVA COLUMNA PROMO
                             promo: row.promo ? row.promo.trim() : ""
                         }));
                     document.getElementById('loading').style.display = 'none';
@@ -360,14 +335,10 @@
 
             filteredList.forEach(p => {
                 const coverImage = p.images[0].startsWith('http') || p.images[0].endsWith('jpg') || p.images[0].endsWith('png') ? p.images[0] : 'logo.jpg';
-                
-                // Generar etiqueta de promo si existe
                 const promoHTML = p.promo ? `<div class="promo-badge">${p.promo}</div>` : '';
 
                 const card = document.createElement('div');
                 card.className = 'product-card';
-                
-                // CORRECCIÓN: Convertir el ID a String para comparar sin problemas
                 card.onclick = () => openProductModal(p.id);
                 
                 card.innerHTML = `
@@ -386,7 +357,6 @@
         }
 
         function openProductModal(id) {
-            // CORRECCIÓN CLAVE: Usar '==' para comparar (permite "1" == 1) o convertir a string
             currentProduct = products.find(p => String(p.id) === String(id)); 
             
             if (!currentProduct) {
