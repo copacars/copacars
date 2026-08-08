@@ -155,8 +155,8 @@
 
         /* BOTONES FLOTANTES (WHATSAPP Y MAPA) */
         .floating-wa-btn { position: fixed; bottom: 25px; right: 25px; background-color: var(--wa-color); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 35px; box-shadow: var(--shadow-lg); cursor: pointer; z-index: 1000; transition: transform 0.3s; }
-        .floating-wa-btn:hover { transform: scale(1.1); }
-        
+        .floating-wa-btn:hover { transform: scale(1.1); 
+                                                                                                                                                                                                                                                                         
         .floating-map-btn { position: fixed; bottom: 25px; left: 25px; background-color: var(--danger); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow-lg); cursor: pointer; z-index: 1000; transition: transform 0.3s; }
         .floating-map-btn:hover { transform: scale(1.1); background-color: var(--primary); }
 
@@ -168,7 +168,7 @@
         .cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--bg-body); padding-bottom: 15px; margin-bottom: 15px; }
         .cart-header h2 { margin: 0; font-size: 1.5rem; color: var(--text-dark); font-weight: 800; }
         .close-cart { cursor: pointer; font-size: 2rem; color: var(--text-gray); line-height: 1; }
-        
+    
         .cart-items-container { flex-grow: 1; overflow-y: auto; }
         .cart-item { display: flex; gap: 15px; padding: 15px 0; border-bottom: 1px solid var(--border); align-items: center; }
         .cart-item-img { width: 70px; height: 70px; object-fit: contain; border: 1px solid var(--border); border-radius: 10px; padding: 5px; }
@@ -210,7 +210,7 @@
             #product-detail-view { padding-bottom: 100px; }
             
             /* Ajuste para que los botones flotantes no molesten tanto en móvil */
-            .floating-map-btn { bottom: 85px; right: 25px; left: auto; width: 50px; height: 50px; }
+            .floating-map-btn { bottom: 20px; left: 20px; right: auto; width: 50px; height: 50px; }
             .floating-wa-btn { width: 50px; height: 50px; bottom: 20px; right: 25px; }
             /* Cuando entramos a producto en movil ocultar map btn para que no estorbe */
             .hide-on-product { display: block; }
